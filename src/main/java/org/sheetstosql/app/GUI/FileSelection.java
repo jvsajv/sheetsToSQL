@@ -1,6 +1,6 @@
 package org.sheetstosql.app.GUI;
 
-import org.sheetstosql.fileUtils.SheetProcessor;
+import org.sheetstosql.Utils.SheetProcessor;
 import org.sheetstosql.models.SheetData;
 
 import javax.swing.*;

@@ -11,9 +11,10 @@ import java.util.List;
 
 public class Table extends JFrame implements ActionListener {
     private final JButton button;
-
+    private SheetData sheetData;
     public Table(SheetData sheetData) {
         super("Sheet Table");
+        this.sheetData = sheetData;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
         setLocationRelativeTo(null);
@@ -56,7 +57,8 @@ public class Table extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button){
-            // TODO ask table name
+            setVisible(false);
+            new UserPreferences(sheetData);
         }
     }
 }
