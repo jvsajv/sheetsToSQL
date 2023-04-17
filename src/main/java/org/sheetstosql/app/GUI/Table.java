@@ -18,10 +18,9 @@ public class Table extends JFrame implements ActionListener {
         setSize(500, 500);
         setLocationRelativeTo(null);
 
-        DefaultTableModel model = new DefaultTableModel(sheetData.getHeaders().toArray(),0);
-        for (List<String> row : sheetData.getData()) {
-            model.addRow(row.toArray());
-        }
+        DefaultTableModel model;
+        model = loadSheetDataIntoTable(sheetData);
+
         JTable table = new JTable(model);
 
         button = new JButton("Next Step");
@@ -37,6 +36,22 @@ public class Table extends JFrame implements ActionListener {
         revalidate();
 
         setVisible(true);
+    }
+
+    public DefaultTableModel loadSheetDataIntoTable(SheetData sheetData){
+        return loadDataIntoTable(sheetData, loadHeadersIntoTable(sheetData));
+    }
+
+    public DefaultTableModel loadHeadersIntoTable(SheetData sheetData){
+        return new DefaultTableModel(sheetData.getHeaders().toArray(),0);
+    }
+    public DefaultTableModel loadDataIntoTable(SheetData sheetData, DefaultTableModel model) {
+
+        for (List<String> row : sheetData.getData()) {
+            model.addRow(row.toArray());
+        }
+
+        return model;
     }
 
     public void actionPerformed(ActionEvent e) {

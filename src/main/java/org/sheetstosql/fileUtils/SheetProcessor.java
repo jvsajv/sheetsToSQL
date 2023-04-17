@@ -15,7 +15,14 @@ public class SheetProcessor {
         Workbook workbook = WorkbookFactory.create(file);
         Sheet sheet = workbook.getSheetAt(0);
 
-        ArrayList<String> headers = new ArrayList<>();
+        sheetData.setHeaders(processHeaders(sheet));
+        sheetData.setData(processData(sheet));
+
+        return sheetData;
+    }
+
+    public List<String> processHeaders(Sheet sheet){
+        List<String> headers = new ArrayList<>();
 
         for(Cell cell : sheet.getRow(0)){
             if (cell.getCellType() != CellType.BLANK) {
@@ -23,9 +30,13 @@ public class SheetProcessor {
             }
         }
 
-        sheet.removeRow(sheet.getRow(0));
+        return headers;
+    }
 
+    public List<List<String>> processData(Sheet sheet){
         List<List<String>> data = new ArrayList<>();
+
+        sheet.removeRow(sheet.getRow(0));
 
         for(Row row : sheet){
             List<String> stringList = new ArrayList<>();
@@ -36,10 +47,6 @@ public class SheetProcessor {
             }
             data.add(stringList);
         }
-
-        sheetData.setHeaders(headers);
-        sheetData.setData(data);
-
-        return sheetData;
+        return data;
     }
 }
